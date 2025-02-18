@@ -17,13 +17,11 @@ class RabbitMQDemoController {
     }
 
     @PostMapping("/send")
-    public void sendMessage(@RequestBody MyMessage myMessage){
-        rabbitTemplate.convertAndSend(
-                properties.orderEventsExchange(),
-                myMessage.routingKey(),
-                myMessage.payload());
+    public void sendMessage(@RequestBody MyMessage myMessage) {
+        rabbitTemplate.convertAndSend(properties.orderEventsExchange(), myMessage.routingKey(), myMessage.payload());
     }
 }
 
 record MyMessage(String routingKey, MyPayload payload) {}
+
 record MyPayload(String content) {}
