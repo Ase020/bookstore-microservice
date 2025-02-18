@@ -2,12 +2,10 @@ package com.asejnr.catalog_service.web.controllers;
 
 import com.asejnr.catalog_service.domain.PagedResult;
 import com.asejnr.catalog_service.domain.Product;
+import com.asejnr.catalog_service.domain.ProductNotFoundException;
 import com.asejnr.catalog_service.domain.ProductService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/products")
@@ -20,7 +18,15 @@ class ProductController {
     }
 
     @GetMapping
-    public PagedResult<Product> getProducts(@RequestParam(name = "page", defaultValue = "1") int page) {
+    PagedResult<Product> getProducts(@RequestParam(name = "page", defaultValue = "1") int page) {
         return productService.getProducts(page);
+    }
+
+    @GetMapping("/{code}")
+    ResponseEntity<Product> getProductByCode(@PathVariable String code) {
+        return productService
+                .findByCode(code)
+                .map(ResponseEntity::ok)
+                .orElseThrow(() -> ProductNotFoundException.forCode(code));
     }
 }
