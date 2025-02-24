@@ -4,6 +4,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
 import com.asejnr.order_service.AbstractIntegrationTest;
+import com.asejnr.order_service.testdata.TestDataFactory;
 import io.restassured.http.ContentType;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -52,17 +53,17 @@ class OrderControllerTests extends AbstractIntegrationTest {
                     .body("orderNumber", notNullValue());
         }
 
-        //        @Test
-        //        void shouldReturnBadRequestWhenMandatoryDataIsMissing() {
-        //            var payload = TestDataFactory.createOrderRequestWithInvalidCustomer();
-        //            given().contentType(ContentType.JSON)
-        //                    .header("Authorization", "Bearer " + getToken())
-        //                    .body(payload)
-        //                    .when()
-        //                    .post("/api/orders")
-        //                    .then()
-        //                    .statusCode(HttpStatus.BAD_REQUEST.value());
-        //        }
+        @Test
+        void shouldReturnBadRequestWhenMandatoryDataIsMissing() {
+            var payload = TestDataFactory.createOrderRequestWithInvalidCustomer();
+            given().contentType(ContentType.JSON)
+//          .header("Authorization", "Bearer " + getToken())
+                    .body(payload)
+                    .when()
+                    .post("/api/orders")
+                    .then()
+                    .statusCode(HttpStatus.BAD_REQUEST.value());
+        }
     }
 
     //    @Nested
