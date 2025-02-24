@@ -10,7 +10,7 @@ import org.springframework.test.context.jdbc.Sql;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.notNullValue;
 
-@Sql("/test-orders.sql")
+//@Sql("/test-orders.sql")
 class OrderControllerTests extends AbstractIntegrationTest {
 
     @Nested
