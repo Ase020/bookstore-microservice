@@ -27,7 +27,8 @@ class OrderValidator {
                     .orElseThrow(() -> new InvalidOrderException("Invalid product code: " + item.code()));
             if (item.price().compareTo(product.price()) != 0) {
                 logger.error("Product price not matching. Actual: {}, Received: {}", product.price(), item.price());
-                throw new InvalidOrderException("Product price not matching. Expected: " +  product.price() + ", Received: " + item.price());
+                throw new InvalidOrderException(
+                        "Product price not matching. Expected: " + product.price() + ", Received: " + item.price());
             }
         }
     }
