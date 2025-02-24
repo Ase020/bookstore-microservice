@@ -36,7 +36,7 @@ class OrderControllerTests extends AbstractIntegrationTest {
                                 {
                                     "code": "P100",
                                     "name": "Product 1",
-                                    "price": 25.50,
+                                    "price": 34.0,
                                     "quantity": 1
                                 }
                             ]
