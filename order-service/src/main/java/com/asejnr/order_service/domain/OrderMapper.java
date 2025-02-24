@@ -4,7 +4,6 @@ import com.asejnr.order_service.domain.model.CreateOrderRequest;
 import com.asejnr.order_service.domain.model.OrderDTO;
 import com.asejnr.order_service.domain.model.OrderItem;
 import com.asejnr.order_service.domain.model.OrderStatus;
-
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
@@ -20,7 +19,7 @@ class OrderMapper {
 
         Set<OrderItemEntity> orderItems = new HashSet<>();
 
-        for(OrderItem item : orderRequest.items()) {
+        for (OrderItem item : orderRequest.items()) {
             OrderItemEntity orderItem = new OrderItemEntity();
             orderItem.setCode(item.code());
             orderItem.setName(item.name());

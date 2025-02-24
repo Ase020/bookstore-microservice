@@ -3,7 +3,6 @@ package com.asejnr.order_service.domain;
 import com.asejnr.order_service.domain.model.OrderCreatedEvent;
 import com.asejnr.order_service.domain.model.OrderDeliveredEvent;
 import com.asejnr.order_service.domain.model.OrderItem;
-
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.UUID;
@@ -17,8 +16,7 @@ class OrderEventMapper {
                 getOrderItems(order),
                 order.getCustomer(),
                 order.getDeliveryAddress(),
-                LocalDateTime.now()
-        );
+                LocalDateTime.now());
     }
 
     static OrderDeliveredEvent buildOrderDeliveredEvent(OrderEntity order) {
@@ -28,8 +26,7 @@ class OrderEventMapper {
                 getOrderItems(order),
                 order.getCustomer(),
                 order.getDeliveryAddress(),
-                LocalDateTime.now()
-        );
+                LocalDateTime.now());
     }
 
     private static Set<OrderItem> getOrderItems(OrderEntity order) {
