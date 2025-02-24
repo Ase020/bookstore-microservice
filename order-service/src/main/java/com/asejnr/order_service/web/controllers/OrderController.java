@@ -1,5 +1,6 @@
 package com.asejnr.order_service.web.controllers;
 
+import com.asejnr.order_service.domain.InvalidOrderException;
 import com.asejnr.order_service.domain.OrderService;
 import com.asejnr.order_service.domain.SecurityService;
 import com.asejnr.order_service.domain.model.CreateOrderRequest;
@@ -25,7 +26,7 @@ class OrderController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    CreateOrderResponse createOrder(@Valid @RequestBody CreateOrderRequest request) {
+    CreateOrderResponse createOrder(@Valid @RequestBody CreateOrderRequest request) throws InvalidOrderException {
         String username = securityService.getLoginUsername();
         logger.info("Creating order for {}", username);
         return orderService.createOrder(username, request);
