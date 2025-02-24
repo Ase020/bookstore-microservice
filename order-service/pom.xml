@@ -32,6 +32,7 @@
 		<dockerImageName>asejnr/bookstore-microservice-${project.artifactId}</dockerImageName>
 		<spotless-maven-plugin.version>2.43.0</spotless-maven-plugin.version>
 		<springdoc-openapi.version>2.5.0</springdoc-openapi.version>
+		<instancio.version>5.2.1</instancio.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -126,6 +127,12 @@
 		<dependency>
 			<groupId>io.rest-assured</groupId>
 			<artifactId>rest-assured</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.instancio</groupId>
+			<artifactId>instancio-junit</artifactId>
+			<version>${instancio.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
