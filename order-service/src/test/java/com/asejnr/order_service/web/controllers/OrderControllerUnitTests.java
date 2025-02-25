@@ -45,7 +45,7 @@ class OrderControllerUnitTests {
     @ParameterizedTest(name = "[{index}]-{0}")
     @MethodSource("createOrderRequestProvider")
     void shouldReturnBadRequestWhenOrderPayloadIsInvalid(CreateOrderRequest orderRequest) throws Exception {
-        System.out.println("orderRquest" + orderRequest);
+        System.out.println("orderRequest" + orderRequest);
         given(orderService.createOrder(eq("username"), any(CreateOrderRequest.class)))
                 .willReturn(null);
 
