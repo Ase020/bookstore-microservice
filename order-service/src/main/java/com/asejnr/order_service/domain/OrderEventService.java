@@ -13,7 +13,7 @@ import java.util.List;
 
 @Service
 @Transactional
-class OrderEventService {
+public class OrderEventService {
     private static final Logger log = LoggerFactory.getLogger(OrderEventService.class);
 
     private final OrderEventRepository orderEventRepository;
