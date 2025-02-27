@@ -28,6 +28,6 @@ CREATE TABLE order_items
     name     TEXT NOT NULL,
     price    NUMERIC NOT NULL,
     quantity INTEGER NOT NULL,
-    PRIMARY KEY (id),
-    order_id BIGINT  NOT NULL REFERENCES orders (id)
+    order_id BIGINT  NOT NULL REFERENCES orders (id),
+    PRIMARY KEY (id)
 );
