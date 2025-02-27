@@ -18,7 +18,6 @@ class OrderEventPublisher {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-
     public void publish(OrderCreatedEvent orderCreatedEvent) {
         this.send(applicationProperties.newOrdersQueue(), orderCreatedEvent);
     }

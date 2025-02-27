@@ -3,13 +3,12 @@ package com.asejnr.order_service.domain;
 import com.asejnr.order_service.domain.model.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @Transactional
@@ -20,14 +19,16 @@ public class OrderEventService {
     private final OrderEventPublisher orderEventPublisher;
     private final ObjectMapper objectMapper;
 
-
-    OrderEventService(OrderEventRepository orderEventRepository, OrderEventPublisher orderEventPublisher, ObjectMapper objectMapper) {
+    OrderEventService(
+            OrderEventRepository orderEventRepository,
+            OrderEventPublisher orderEventPublisher,
+            ObjectMapper objectMapper) {
         this.orderEventRepository = orderEventRepository;
         this.orderEventPublisher = orderEventPublisher;
         this.objectMapper = objectMapper;
     }
-    
-    void save(OrderCreatedEvent event){
+
+    void save(OrderCreatedEvent event) {
         OrderEventEntity orderEvent = new OrderEventEntity();
         orderEvent.setEventId(event.eventId());
         orderEvent.setEventType(OrderEventType.ORDER_CREATED);
@@ -38,7 +39,7 @@ public class OrderEventService {
         this.orderEventRepository.save(orderEvent);
     }
 
-    void save(OrderDeliveredEvent event){
+    void save(OrderDeliveredEvent event) {
         OrderEventEntity orderEvent = new OrderEventEntity();
         orderEvent.setEventId(event.eventId());
         orderEvent.setEventType(OrderEventType.ORDER_DELIVERED);
@@ -49,7 +50,7 @@ public class OrderEventService {
         this.orderEventRepository.save(orderEvent);
     }
 
-    void save(OrderCancelledEvent event){
+    void save(OrderCancelledEvent event) {
         OrderEventEntity orderEvent = new OrderEventEntity();
         orderEvent.setEventId(event.eventId());
         orderEvent.setEventType(OrderEventType.ORDER_CANCELED);
@@ -60,7 +61,7 @@ public class OrderEventService {
         this.orderEventRepository.save(orderEvent);
     }
 
-    void save(OrderErrorEvent event){
+    void save(OrderErrorEvent event) {
         OrderEventEntity orderEvent = new OrderEventEntity();
         orderEvent.setEventId(event.eventId());
         orderEvent.setEventType(OrderEventType.ORDER_PROCESSING_FAILED);
@@ -71,7 +72,7 @@ public class OrderEventService {
         this.orderEventRepository.save(orderEvent);
     }
 
-    public void publishOrderEvents(){
+    public void publishOrderEvents() {
         Sort sort = Sort.by("createdAt").ascending();
         List<OrderEventEntity> orderEvents = this.orderEventRepository.findAll(sort);
         log.info("Order events found: {}", orderEvents.size());
@@ -83,7 +84,7 @@ public class OrderEventService {
         }
     }
 
-    public void publishEvent(OrderEventEntity orderEvent){
+    public void publishEvent(OrderEventEntity orderEvent) {
         OrderEventType eventType = orderEvent.getEventType();
 
         switch (eventType) {
@@ -92,11 +93,13 @@ public class OrderEventService {
                 orderEventPublisher.publish(orderCreatedEvent);
                 break;
             case ORDER_DELIVERED:
-                OrderDeliveredEvent orderDeliveredEvent = fromJsonPayload(orderEvent.getPayload(), OrderDeliveredEvent.class);
+                OrderDeliveredEvent orderDeliveredEvent =
+                        fromJsonPayload(orderEvent.getPayload(), OrderDeliveredEvent.class);
                 orderEventPublisher.publish(orderDeliveredEvent);
                 break;
             case ORDER_CANCELED:
-                OrderCancelledEvent orderCancelledEvent = fromJsonPayload(orderEvent.getPayload(), OrderCancelledEvent.class);
+                OrderCancelledEvent orderCancelledEvent =
+                        fromJsonPayload(orderEvent.getPayload(), OrderCancelledEvent.class);
                 orderEventPublisher.publish(orderCancelledEvent);
                 break;
             case ORDER_PROCESSING_FAILED:
@@ -107,7 +110,6 @@ public class OrderEventService {
                 log.warn("Unsupported eventType: {}", eventType);
         }
     }
-
 
     private String toJsonPayload(Object object) {
         try {

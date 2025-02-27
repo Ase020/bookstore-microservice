@@ -2,7 +2,6 @@ package com.asejnr.order_service.domain;
 
 import com.asejnr.order_service.domain.model.OrderEventType;
 import jakarta.persistence.*;
-
 import java.time.LocalDateTime;
 
 @Entity
@@ -17,7 +16,7 @@ class OrderEventEntity {
     private String orderNumber;
 
     @Column(nullable = false, unique = true)
-    private  String eventId;
+    private String eventId;
 
     @Enumerated(EnumType.STRING)
     private OrderEventType eventType;

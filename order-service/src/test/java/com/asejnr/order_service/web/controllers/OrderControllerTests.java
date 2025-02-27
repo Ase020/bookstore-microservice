@@ -6,11 +6,10 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import com.asejnr.order_service.AbstractIntegrationTest;
 import com.asejnr.order_service.testdata.TestDataFactory;
 import io.restassured.http.ContentType;
+import java.math.BigDecimal;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.HttpStatus;
-
-import java.math.BigDecimal;
 
 // @Sql("/test-orders.sql")
 class OrderControllerTests extends AbstractIntegrationTest {
@@ -60,7 +59,7 @@ class OrderControllerTests extends AbstractIntegrationTest {
         void shouldReturnBadRequestWhenMandatoryDataIsMissing() {
             var payload = TestDataFactory.createOrderRequestWithInvalidCustomer();
             given().contentType(ContentType.JSON)
-//          .header("Authorization", "Bearer " + getToken())
+                    //          .header("Authorization", "Bearer " + getToken())
                     .body(payload)
                     .when()
                     .post("/api/orders")
