@@ -1,7 +1,8 @@
 package com.asejnr.order_service.jobs;
 
 import com.asejnr.order_service.domain.OrderEventService;
-import java.time.Instant;
+import java.time.LocalDateTime;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -19,7 +20,7 @@ class OrderEventsPublishingJob {
 
     @Scheduled(cron = "${orders.publish-order-events-cron-job}")
     public void publishOrderEvents() {
-        log.info("Publishing order events at {}", Instant.now().toString());
+        log.info("Publishing order events at {}", LocalDateTime.now());
         orderEventService.publishOrderEvents();
     }
 }
