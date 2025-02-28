@@ -7,17 +7,17 @@ import java.util.Set;
 
 public record OrderDTO(
         String orderNumber,
-        String user,
+        String username,
         Set<OrderItem> items,
         Customer customer,
         Address deliveryAddress,
         OrderStatus status,
         String comment,
         LocalDateTime createdAt) {
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    public BigDecimal getTotalAmount() {
-        return items.stream()
-                .map(item -> item.price().multiply(BigDecimal.valueOf(item.quantity())))
-                .reduce(BigDecimal.ZERO, BigDecimal::add);
-    }
+        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+        public BigDecimal getTotalAmount() {
+            return items.stream()
+                    .map(item -> item.price().multiply(BigDecimal.valueOf(item.quantity())))
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+        }
 }

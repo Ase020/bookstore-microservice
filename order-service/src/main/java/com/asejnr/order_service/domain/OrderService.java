@@ -1,11 +1,11 @@
 package com.asejnr.order_service.domain;
 
-import com.asejnr.order_service.domain.model.CreateOrderRequest;
-import com.asejnr.order_service.domain.model.CreateOrderResponse;
-import com.asejnr.order_service.domain.model.OrderCreatedEvent;
-import com.asejnr.order_service.domain.model.OrderStatus;
+import com.asejnr.order_service.domain.model.*;
 import jakarta.transaction.Transactional;
+
 import java.util.List;
+import java.util.Optional;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -64,13 +64,27 @@ public class OrderService {
             }
         } catch (RuntimeException e) {
             logger.error("Failed to process Order with orderNumber: {}", order.getOrderNumber(), e);
+            String reason = (e.getMessage() != null && !e.getMessage().isEmpty())
+                    ? e.getMessage()
+                    : "Failed to process Order with orderNumber: " + order.getOrderNumber();
+
             orderRepository.updateOrderStatus(order.getOrderNumber(), OrderStatus.ERROR);
-            orderEventService.save(OrderEventMapper.buildOrderErrorEvent(order, e.getMessage()));
+            orderEventService.save(OrderEventMapper.buildOrderErrorEvent(order, reason));
         }
     }
 
     private boolean canBeDelivered(OrderEntity order) {
         return DELIVERY_ALLOWED_COUNTRIES.contains(
                 order.getDeliveryAddress().country().toUpperCase());
+    }
+
+    public List<OrderSummary> findOrders(String username) {
+        return orderRepository.findByUserName(username);
+    }
+
+
+    public Optional<OrderDTO> findUserOrder(String username, String orderNumber) {
+        return orderRepository.findByUserNameAndOrderNumber(username, orderNumber)
+                .map(OrderMapper::convertEntityToDTO);
     }
 }
