@@ -32,6 +32,7 @@ class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     CreateOrderResponse createOrder(@Valid @RequestBody CreateOrderRequest request) throws InvalidOrderException {
         String username = securityService.getLoginUsername();
+        System.out.println("Usernamease: " + username);
         logger.info("Creating order for {}", username);
         return orderService.createOrder(username, request);
     }

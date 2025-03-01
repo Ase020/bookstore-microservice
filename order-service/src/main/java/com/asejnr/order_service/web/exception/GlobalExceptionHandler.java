@@ -20,9 +20,9 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 
 @RestControllerAdvice
 class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
-    private static final URI NOT_FOUND_TYPE = URI.create("https://localhost:8081/errors/not-found");
-    private static final URI ISE_FOUND_TYPE = URI.create("https://localhost:8081/errors/server-error");
-    private static final URI BAD_REQUEST_TYPE = URI.create("https://localhost:8081/errors/bad-request");
+    private static final URI NOT_FOUND_TYPE = URI.create("http://localhost:8081/errors/not-found");
+    private static final URI ISE_FOUND_TYPE = URI.create("http://localhost:8081/errors/server-error");
+    private static final URI BAD_REQUEST_TYPE = URI.create("http://localhost:8081/errors/bad-request");
     private static final String SERVICE_NAME = "order-service";
 
     @ExceptionHandler(Exception.class)
