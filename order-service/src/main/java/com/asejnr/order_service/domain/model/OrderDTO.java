@@ -14,10 +14,10 @@ public record OrderDTO(
         OrderStatus status,
         String comment,
         LocalDateTime createdAt) {
-        @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-        public BigDecimal getTotalAmount() {
-            return items.stream()
-                    .map(item -> item.price().multiply(BigDecimal.valueOf(item.quantity())))
-                    .reduce(BigDecimal.ZERO, BigDecimal::add);
-        }
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    public BigDecimal getTotalAmount() {
+        return items.stream()
+                .map(item -> item.price().multiply(BigDecimal.valueOf(item.quantity())))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
 }

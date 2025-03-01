@@ -2,10 +2,8 @@ package com.asejnr.order_service.domain;
 
 import com.asejnr.order_service.domain.model.*;
 import jakarta.transaction.Transactional;
-
 import java.util.List;
 import java.util.Optional;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -82,9 +80,9 @@ public class OrderService {
         return orderRepository.findByUserName(username);
     }
 
-
     public Optional<OrderDTO> findUserOrder(String username, String orderNumber) {
-        return orderRepository.findByUserNameAndOrderNumber(username, orderNumber)
+        return orderRepository
+                .findByUserNameAndOrderNumber(username, orderNumber)
                 .map(OrderMapper::convertEntityToDTO);
     }
 }
