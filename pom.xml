@@ -16,10 +16,25 @@
         <maven.compiler.release>${java.version}</maven.compiler.release>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot</artifactId>
+            <version>3.4.3</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-autoconfigure</artifactId>
+            <version>3.4.3</version>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
     <modules>
         <module>catalog-service</module>
         <module>order-service</module>
+        <module>notification-service</module>
     </modules>
 
     <build>
