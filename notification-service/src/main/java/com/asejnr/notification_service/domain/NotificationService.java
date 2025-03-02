@@ -15,7 +15,7 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
 @Service
-class NotificationService {
+public class NotificationService {
     private static final Logger log = LoggerFactory.getLogger(NotificationService.class);
 
     private final JavaMailSender mailSender;
@@ -100,7 +100,8 @@ class NotificationService {
         sendEmail(applicationProperties.supportEmail(), "Order Processing Failure Notification", message);
     }
 
-    private void sendEmail(@NotBlank(message = "Customer email is required") @Email String email, String subject, String message) {
+    private void sendEmail(
+            @NotBlank(message = "Customer email is required") @Email String email, String subject, String message) {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "UTF-8");
