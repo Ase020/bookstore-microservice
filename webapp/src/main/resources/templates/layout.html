@@ -2,7 +2,7 @@
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <!--      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">-->
 <head>
     <meta charset="utf-8"/>
@@ -63,12 +63,12 @@
 <script src="/webjars/jquery/3.7.1/jquery.js"></script>
 <script src="/webjars/bootstrap/5.3.3/js/bootstrap.bundle.js"></script>
 <script defer src="/webjars/alpinejs/3.13.5/dist/cdn.min.js"></script>
-<script src="/js/cartStore.js"></script>
-<script th:inline="javascript">
-    /*<![CDATA[*/
-    const apiGatewayUrl = /*[[${@environment.getProperty('bookstore.api-gateway-url')}]]*/ '';
-    /*]]>*/
-</script>
+<!--<script src="/js/cartStore.js"></script>-->
+<!--<script th:inline="javascript">-->
+<!--    /*<![CDATA[*/-->
+<!--    const apiGatewayUrl = /*[[${@environment.getProperty('bookstore.api-gateway-url')}]]*/ '';-->
+<!--    /*]]>*/-->
+<!--</script>-->
 <div layout:fragment="pageScripts">
 </div>
 </body>
