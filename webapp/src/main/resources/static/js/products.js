@@ -12,6 +12,9 @@ document.addEventListener('alpine:init', () => {
                 console.log("Product response:", response)
                 this.products = response;
             })
+        },
+        addToCart(product) {
+            addProductToCart(product);
         }
     }))
 });
