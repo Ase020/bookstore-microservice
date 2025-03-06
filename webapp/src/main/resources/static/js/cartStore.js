@@ -11,16 +11,13 @@ const getCart = function () {
 
 const addProductToCart = function (product) {
     let cart = getCart();
-    console.log("Cart: ", cart);
     let cartItem = cart.items.find(item => item.code === product.code);
 
-    console.log("CartItem: ", cartItem);
     if (cartItem) {
         cartItem.quantity = parseInt(cartItem.quantity) + 1;
     } else {
         cart.items.push(Object.assign({}, product, {quantity: 1}));
     }
-    console.log("CartItem: ", cartItem);
 
     localStorage.setItem(BOOK_STATE_KEY, JSON.stringify(cart));
     updateCartItemCount();
