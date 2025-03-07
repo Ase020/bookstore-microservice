@@ -9,7 +9,6 @@ document.addEventListener('alpine:init', () => {
         },
         loadProducts(pageNo) {
             $.getJSON("/api/products?page="+pageNo, (response)=> {
-                console.log("Product response:", response)
                 this.products = response;
             })
         },
