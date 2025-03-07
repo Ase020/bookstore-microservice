@@ -8,8 +8,7 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @SpringBootApplication
 public class WebappApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(WebappApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(WebappApplication.class, args);
+    }
 }

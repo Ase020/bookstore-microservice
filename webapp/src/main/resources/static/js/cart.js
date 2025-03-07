@@ -37,7 +37,7 @@ document.addEventListener('alpine:init', () => {
             let order = Object.assign({}, this.orderForm, {items: this.cart.items});
 
             $.ajax({
-                url: apiGatewayUrl+'/orders/api/orders',
+                url: '/api/orders',
                 type: 'POST',
                 dataType: 'json',
                 contentType: 'application/json',
