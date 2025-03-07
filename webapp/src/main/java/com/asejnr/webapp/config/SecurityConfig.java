@@ -23,18 +23,19 @@ class SecurityConfig {
 
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests.requestMatchers(
-                    "/js/*",
-                    "/css/*",
-                    "/images/*",
-                    "/error",
-                    "/webjars/**",
-                    "/",
-                    "/actuator/**",
-                    "/products/**",
-                    "/api/products/**")
-                .permitAll()
-                .anyRequest()
+        http.authorizeHttpRequests(authorizeRequests -> authorizeRequests
+                        .requestMatchers(
+                                "/js/*",
+                                "/css/*",
+                                "/images/*",
+                                "/error",
+                                "/webjars/**",
+                                "/",
+                                "/actuator/**",
+                                "/products/**",
+                                "/api/products/**")
+                        .permitAll()
+                        .anyRequest()
                         .authenticated())
                 .cors(CorsConfigurer::disable)
                 .csrf(CsrfConfigurer::disable)
@@ -46,7 +47,8 @@ class SecurityConfig {
     }
 
     private LogoutSuccessHandler oidcLogoutSuccessHandler() {
-        OidcClientInitiatedLogoutSuccessHandler oidcClientLogoutSuccessHandler = new OidcClientInitiatedLogoutSuccessHandler(this.clientRegistrationRepository);
+        OidcClientInitiatedLogoutSuccessHandler oidcClientLogoutSuccessHandler =
+                new OidcClientInitiatedLogoutSuccessHandler(this.clientRegistrationRepository);
         oidcClientLogoutSuccessHandler.setPostLogoutRedirectUri("{baseUrl}");
         return oidcClientLogoutSuccessHandler;
     }
