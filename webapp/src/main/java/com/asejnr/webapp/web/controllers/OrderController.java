@@ -1,8 +1,10 @@
 package com.asejnr.webapp.web.controllers;
 
 import com.asejnr.webapp.clients.orders.*;
+import com.asejnr.webapp.services.SecurityHelper;
 import jakarta.validation.Valid;
 import java.util.List;
+import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -14,9 +16,11 @@ class OrderController {
     private static final Logger log = LoggerFactory.getLogger(OrderController.class);
 
     private final OrderServiceClient orderServiceClient;
+    private final SecurityHelper securityHelper;
 
-    OrderController(OrderServiceClient orderServiceClient) {
+    OrderController(OrderServiceClient orderServiceClient, SecurityHelper securityHelper) {
         this.orderServiceClient = orderServiceClient;
+        this.securityHelper = securityHelper;
     }
 
     @GetMapping("/cart")
@@ -27,8 +31,10 @@ class OrderController {
     @PostMapping("/api/orders")
     @ResponseBody
     OrderConfirmationDTO createOrder(@Valid @RequestBody CreateOrderRequest orderRequest) {
+        String accessToken = securityHelper.getAccessToken();
+        Map<String, ?> headers = Map.of("Authorization", "Bearer " + accessToken);
         log.info("Creating order: {}", orderRequest);
-        return orderServiceClient.createOrder(orderRequest);
+        return orderServiceClient.createOrder(headers, orderRequest);
     }
 
     @GetMapping("/orders/{orderNumber}")
@@ -40,8 +46,10 @@ class OrderController {
     @GetMapping("/api/orders/{orderNumber}")
     @ResponseBody
     OrderDTO getOrder(@PathVariable String orderNumber) {
+        String accessToken = securityHelper.getAccessToken();
+        Map<String, ?> headers = Map.of("Authorization", "Bearer " + accessToken);
         log.info("Fetching order: {}", orderNumber);
-        return orderServiceClient.getOrder(orderNumber);
+        return orderServiceClient.getOrder(headers, orderNumber);
     }
 
     @GetMapping("/orders")
@@ -52,7 +60,9 @@ class OrderController {
     @GetMapping("/api/orders")
     @ResponseBody
     List<OrderSummary> getOrders() {
-        log.info("Fetching orders");
-        return orderServiceClient.getOrders();
+        String accessToken = securityHelper.getAccessToken();
+        Map<String, ?> headers = Map.of("Authorization", "Bearer " + accessToken);
+        log.info("Fetching orders...");
+        return orderServiceClient.getOrders(headers);
     }
 }
