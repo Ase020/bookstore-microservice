@@ -66,12 +66,12 @@ tasks:
   start:
     deps: [format, build]
     cmds:
-      - "docker compose -f {{.INFRA_DC_FILE}} -f {{.APPS_DC_FILE}} up -d"
+      - "docker compose -f {{.MONITORING_DC_FILE}} -f {{.INFRA_DC_FILE}} -f {{.APPS_DC_FILE}} up -d"
 
   stop:
     cmds:
-      - "docker compose -f {{.INFRA_DC_FILE}} -f {{.APPS_DC_FILE}} stop"
-      - "docker compose -f {{.INFRA_DC_FILE}} -f {{.APPS_DC_FILE}} rm -f"
+      - "docker compose -f {{.MONITORING_DC_FILE}} -f {{.INFRA_DC_FILE}} -f {{.APPS_DC_FILE}} stop"
+      - "docker compose -f {{.MONITORING_DC_FILE}} -f {{.INFRA_DC_FILE}} -f {{.APPS_DC_FILE}} rm -f"
 
   restart:
     cmds:
