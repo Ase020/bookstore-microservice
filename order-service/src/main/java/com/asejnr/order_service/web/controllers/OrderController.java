@@ -8,6 +8,7 @@ import com.asejnr.order_service.domain.model.CreateOrderRequest;
 import com.asejnr.order_service.domain.model.CreateOrderResponse;
 import com.asejnr.order_service.domain.model.OrderDTO;
 import com.asejnr.order_service.domain.model.OrderSummary;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import jakarta.validation.Valid;
 import java.util.List;
 import org.slf4j.Logger;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/orders")
+@SecurityRequirement(name = "security_auth")
 class OrderController {
     private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
@@ -32,7 +34,7 @@ class OrderController {
     @ResponseStatus(HttpStatus.CREATED)
     CreateOrderResponse createOrder(@Valid @RequestBody CreateOrderRequest request) throws InvalidOrderException {
         String username = securityService.getLoginUsername();
-        System.out.println("Usernamease: " + username);
+        System.out.println("Username: " + username);
         logger.info("Creating order for {}", username);
         return orderService.createOrder(username, request);
     }
